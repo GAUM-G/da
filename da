@@ -1,0 +1,556 @@
+#include<stdio.h>
+#include<conio.h>
+#include<time.h>
+void main () {
+    int a[100];
+    int n,i,j,key;
+    clock_t starttime,endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter size of array: ");
+    scanf("%d",&n);
+    printf("Enter elements : \n");
+    for(i=1;i<=n;i++) {
+	scanf("%d",&a[i]);
+    }
+    starttime=clock();
+    for(j=2;j<=n;j++) {
+	key=a[j];
+	i=j-1;
+	while(i>0 && a[i]>key) {
+	    a[i+1]=a[i];
+	    i=i-1;
+	}
+	a[i+1]=key;
+    }
+    endtime=clock();
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("Sorted Array: \n");
+    for(i=1;i<=n;i++) {
+	printf("%d ",a[i]);
+    }
+    printf("\nTime taken: %f",timetaken);
+    getch();
+}
+#include <stdio.h>
+#include <time.h>
+#include <conio.h>
+#include <stdlib.h>
+void Merge(int *A, int p, int q, int r) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    int *L = (int *)malloc(n1 * sizeof(int));
+    int *R = (int *)malloc(n2 * sizeof(int));
+    int i, j, k;
+    for (i = 0; i < n1; i++) {
+	L[i] = A[p + i];
+    }
+    for (j = 0; j < n2; j++) {
+	R[j] = A[q + 1 + j];
+    }
+    i = 0; j = 0; k = p;
+    while (i < n1 && j < n2) {
+	if (L[i] <= R[j]) {
+	    A[k] = L[i];
+	    i++;
+	} else {
+	    A[k] = R[j];
+	    j++;
+	}
+	k++;
+    }
+    while (i < n1) {
+	A[k] = L[i];
+	i++;
+	k++;
+    }
+    while (j < n2) {
+	A[k] = R[j];
+	j++;
+	k++;
+    }
+    free(L);
+    free(R);
+}
+void MergeSort(int *A, int p, int r) {
+    if (p < r) {
+	int q = (p + r) / 2;
+	MergeSort(A, p, q);
+	MergeSort(A, q + 1, r);
+	Merge(A, p, q, r);
+    }
+}
+void main() {
+    int n, i;
+    int *A;
+    A = (int *)malloc(n * sizeof(int));
+    clock_t starttime,endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+    printf("Enter the elements: \n");
+    for (i = 0; i < n; i++) {
+	scanf("%d", &A[i]);
+    }
+    starttime = clock();
+    MergeSort(A, 0, n - 1);
+    endtime = clock();
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+	printf("%d ", A[i]);
+    }
+    free(A);
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("\nTime taken: %f",timetaken);
+    getch();
+}
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+void Merge(int *A, int p, int q, int r) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    int *L = (int *)malloc(n1 * sizeof(int));
+    int *R = (int *)malloc(n2 * sizeof(int));
+    int i, j, k;
+    for (i = 0; i < n1; i++) {
+        L[i] = A[p + i];
+    }
+    for (j = 0; j < n2; j++) {
+        R[j] = A[q + 1 + j];
+    }
+    i = 0; j = 0; k = p;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            A[k] = L[i];
+            i++;
+        } else {
+            A[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        A[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        A[k] = R[j];
+        j++;
+        k++;
+    }
+    free(L);
+    free(R);
+}
+void MergeSort(int *A, int p, int r) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        MergeSort(A, p, q);
+        MergeSort(A, q + 1, r);
+        Merge(A, p, q, r);
+    }
+}
+void main() {
+    int n, k, i;
+    int *A;
+    A = (int *)malloc(n * sizeof(int));
+    clock_t starttime,endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+    printf("Enter the elements:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &A[i]);
+    }
+    starttime = clock();
+    MergeSort(A, 0, n - 1);
+    endtime = clock();
+    printf("Sorted array: ");
+    for (i = 0; i < n; i++) {
+	printf("%d ", A[i]);
+    }
+    printf("\nEnter k (for k-th smallest element): ");
+    scanf("%d", &k);
+    if (k >= 1 && k <= n)
+        printf("The %dth smallest element is: %d", k, A[k - 1]);
+    else
+        printf("Invalid value of k!\n");
+
+    free(A);
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("\nTime taken: %f",timetaken);
+    getch();
+}
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+#include <time.h>
+int get_digit_count(long long num) {
+    int count = 0;
+    while (num > 0) {
+        count++;
+        num = num / 10;
+    }
+    return count;
+}
+
+long long karatsuba(long long x, long long y) {
+    if (x < 10 && y < 10) {
+        return x * y;
+    }
+    int max_digit = (get_digit_count(x) > get_digit_count(y)) ? get_digit_count(x) : get_digit_count(y);
+    if (max_digit < 10) {
+        return x * y;
+    }
+    int half_size = (max_digit / 2) + (max_digit % 2);
+    long long multiplier = (long long)pow(10, half_size);
+    long long high_x = x / multiplier;
+    long long low_x = x % multiplier;
+    long long high_y = y / multiplier;
+    long long low_y = y % multiplier;
+    long long part1 = karatsuba(high_x, high_y);
+    long long part2 = karatsuba(high_x + low_x, high_y + low_y);
+    long long part3 = karatsuba(low_x, low_y);
+    return part1 * (long long)pow(10, 2 * half_size) + (part2 - part1 - part3) * multiplier + part3;
+}
+
+int main() {
+    long long x, y, result;
+    clock_t starttime,endtime;
+    double timetaken;
+    clrscr();  
+    printf("ENTER FIRST NUMBER: \n");
+    scanf("%lld", &x);
+    printf("ENTER THE SECOND NUMBER: \n");
+    scanf("%lld", &y);
+    starttime = clock();
+    result = karatsuba(x, y);
+    endtime = clock();
+    printf("THE PRODUCT IS %lld \n", result);
+    timetaken = ((double) (endtime-starttime)) / CLOCKS_PER_SEC;
+    printf("Time taken to execute: %f seconds\n", timetaken);
+    getch();  
+    return 0;
+}
+#include <stdio.h>
+#include <conio.h>
+#include <time.h>
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+void main() {
+    int val[100], wt[100], dp[100][100];
+    int n, cap, i, w;
+    clock_t starttime,endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+    printf("Enter values of items: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &val[i]);
+    printf("Enter weights of items: ");
+    for (i = 0; i < n; i++)
+        scanf("%d", &wt[i]);
+    printf("Enter knapsack capacity: ");
+    scanf("%d", &cap);
+    starttime = clock();
+    for (i = 0; i <= n; i++) {
+        for (w = 0; w <= cap; w++) {
+            if (i == 0 || w == 0)
+                dp[i][w] = 0;
+            else if (wt[i-1] <= w)
+                dp[i][w] = max(val[i-1] + dp[i-1][w - wt[i-1]], dp[i-1][w]);
+            else
+                dp[i][w] = dp[i-1][w];
+        }
+    }
+    endtime = clock();
+    printf("Max value = %d", dp[n][cap]);
+    timetaken = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+    printf("\nTime taken: %f seconds", timetaken);
+    getch();
+}
+#include <stdio.h> 
+#include <conio.h>
+#include <limits.h> 
+#include <time.h> 
+#define MAX_VERTICES 100 
+void floydWarshall(int A[MAX_VERTICES][MAX_VERTICES], int n) { 
+    int k, i, j; 
+    
+    for (k = 0; k < n; k++) { 
+        for (i = 0; i < n; i++) { 
+            for (j = 0; j < n; j++) { 
+                if (A[i][k] != INT_MAX && A[k][j] != INT_MAX) { 
+                    if (A[i][j] > A[i][k] + A[k][j]) { 
+                        A[i][j] = A[i][k] + A[k][j]; 
+                    } 
+                } 
+            } 
+        } 
+    } 
+} 
+void main() { 
+    int n, i, j; 
+    int A[MAX_VERTICES][MAX_VERTICES]; 
+    clock_t starttime, endtime; 
+    double timetaken;
+    clrscr();
+    printf("Enter number of vertices: "); 
+    scanf("%d", &n); 
+    printf("Enter the adjacency matrix (use 9999 for infinity):\n"); 
+    for (i = 0; i < n; i++) { 
+        for (j = 0; j < n; j++) { 
+            scanf("%d", &A[i][j]); 
+            if (A[i][j] == 9999) { 
+                A[i][j] = INT_MAX; 
+            } 
+        } 
+    } 
+    starttime = clock(); 
+    floydWarshall(A, n); 
+    endtime = clock();  
+    printf("The shortest path matrix is:\n"); 
+    for (i = 0; i < n; i++) { 
+        for (j = 0; j < n; j++) { 
+            if (A[i][j] == INT_MAX) { 
+                printf("INF "); 
+            } else { 
+                printf("%d ", A[i][j]); 
+            } 
+        } 
+        printf("\n"); 
+    } 
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("Time taken by the Floyd-Warshall algorithm: %lf seconds\n", timetaken); 
+    getch(); 
+}
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+
+struct Item {
+    int weight;
+    int profit;
+    float ratio;
+};
+int i;
+float fractionalKnapsack(int W, struct Item items[], int n) {
+    for (i = 0; i < n - 1; i++) {
+	for (int j = 0; j < n - i - 1; j++) {
+	    if (items[j].ratio < items[j + 1].ratio) {
+		struct Item temp = items[j];
+		items[j] = items[j + 1];
+		items[j + 1] = temp;
+	    }
+	}
+    }
+    float totalProfit = 0.0;
+    for (i = 0; i < n; i++) {
+	if (W >= items[i].weight) {
+	    W -= items[i].weight;
+	    totalProfit += items[i].profit;
+	} else {
+	    totalProfit += items[i].profit * ((float)W / items[i].weight);
+	    break;
+	}
+    }
+    return totalProfit;
+}
+
+void main() {
+    int n, W;
+    clock_t starttime, endtime;
+    double timetaken;
+    struct Item* items = (struct Item*)malloc(n * sizeof(struct Item));
+    clrscr();
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+    printf("Enter capacity of the knapsack: ");
+    scanf("%d", &W);
+    for (i = 0; i < n; i++) {
+	printf("Enter weight and profit for item %d: ", i + 1);
+	scanf("%d %d", &items[i].weight, &items[i].profit);
+	items[i].ratio = (float)items[i].profit / items[i].weight;
+    }
+    starttime = clock();
+    float maxProfit = fractionalKnapsack(W, items, n);
+    endtime = clock();
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("Maximum profit is: %.2f\n", maxProfit);
+    printf("Function took %lf seconds to execute\n", timetaken);
+    free(items);
+    getch();
+}
+#include <stdio.h>
+#include <conio.h> 
+#include <time.h>
+#define INF 9999
+#define N 100
+
+void main() {
+    int n, src, i, j, u, v, min, dist[N], visited[N], graph[N][N];
+    clock_t starttime, endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+    printf("Enter adjacency matrix (use %d for INF):\n", INF);
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            scanf("%d", &graph[i][j]);
+        }
+    }
+    printf("Enter source vertex (0 to %d): ", n - 1);
+    scanf("%d", &src);
+    for(i = 0; i < n; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+    }
+    dist[src] = 0;
+    starttime = clock();
+    for(i = 0; i < n - 1; i++) {
+        min = INF;
+        for(j = 0; j < n; j++) {
+            if(!visited[j] && dist[j] < min) {
+                min = dist[j], u = j;
+            }
+        }
+        visited[u] = 1;
+        for(v = 0; v < n; v++) {
+            if(graph[u][v] && !visited[v] && dist[u] + graph[u][v] < dist[v]) {
+                dist[v] = dist[u] + graph[u][v];
+            }
+        }
+    }
+    endtime = clock();
+    printf("Shortest distances from vertex %d:\n", src);
+    for(i = 0; i < n; i++) {
+        printf("To %d: %d\n", i, dist[i]);
+    }
+    timetaken = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+    printf("Time taken: %f seconds\n", timetaken);
+    getch();
+}
+#include <stdio.h>
+#include <conio.h> 
+#include <time.h>
+#define INF 9999
+#define N 100
+
+void main() {
+    int n, src, i, j, u, v, min, dist[N], visited[N], graph[N][N];
+    clock_t starttime, endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+    printf("Enter adjacency matrix (use %d for INF):\n", INF);
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            scanf("%d", &graph[i][j]);
+        }
+    }
+    printf("Enter source vertex (0 to %d): ", n - 1);
+    scanf("%d", &src);
+    for(i = 0; i < n; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+    }
+    dist[src] = 0;
+    starttime = clock();
+    for(i = 0; i < n - 1; i++) {
+        min = INF;
+        for(j = 0; j < n; j++) {
+            if(!visited[j] && dist[j] < min) {
+                min = dist[j], u = j;
+            }
+        }
+        visited[u] = 1;
+        for(v = 0; v < n; v++) {
+            if(graph[u][v] && !visited[v] && dist[u] + graph[u][v] < dist[v]) {
+                dist[v] = dist[u] + graph[u][v];
+            }
+        }
+    }
+    endtime = clock();
+    printf("Shortest distances from vertex %d:\n", src);
+    for(i = 0; i < n; i++) {
+        printf("To %d: %d\n", i, dist[i]);
+    }
+    timetaken = (double)(endtime - starttime) / CLOCKS_PER_SEC;
+    printf("Time taken: %f seconds\n", timetaken);
+    getch();
+}
+#include <stdio.h> 
+#include <conio.h>
+#include <stdlib.h>
+#define MAX 100
+#include <time.h>
+int n, m, G[MAX][MAX], x[MAX];
+
+int nextvalue(int k) {
+    while (1) {
+	x[k] = (x[k] + 1) % (m + 1);
+	if (x[k] == 0)
+	    return 0;
+	int j;
+	for (j = 1; j <= n; j++) {
+	    if (G[k][j] != 0 && x[k] == x[j])
+		break;
+	}
+	if (j == n + 1)
+	    return 1;
+    }
+}
+
+void mcolouring(int k) {
+    while (1) {
+	if (!nextvalue(k))
+	    return;
+	if (k == n) {
+	    int i;
+
+	    for (i = 1; i <= n; i++) {
+		printf("%d ", x[i]);
+	    }
+	    printf("\n");
+	} else {
+	    mcolouring(k + 1);
+	}
+    }
+}
+
+void main() {
+    int i, j;
+    clock_t starttime, endtime;
+    double timetaken;
+    clrscr();
+    printf("Enter number of vertices (n): ");
+    scanf("%d", &n);
+    printf("Enter number of colors (m): ");
+    scanf("%d", &m);
+    printf("Enter adjacency matrix (0 for no edge, 1 for edge):\n");
+    for (i = 1; i <= n; i++) {
+	for (j = 1; j <= n; j++) {
+	    scanf("%d", &G[i][j]);
+	}
+    }
+    for (i = 1; i <= n; i++) {
+	x[i] = 0;
+    }
+    printf("\nValid colorings:\n");
+    starttime = clock();
+    mcolouring(1);
+    endtime = clock();
+    timetaken = ((double)(endtime - starttime)) / CLOCKS_PER_SEC;
+    printf("Time taken: %f seconds\n", timetaken);
+    getch();
+}
